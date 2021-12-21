@@ -1,10 +1,11 @@
+import type { NextFunction, Request, Response } from 'express';
 import { Router } from "express";
-import type { Request, Response, NextFunction } from 'express';
-import JWT from 'jsonwebtoken';
-import ForbiddenError from "../models/errors/forbidden.error.model";
-import basicAuthenticationMiddleware from '../middlewares/basic-authentication.middleware';
 import { StatusCodes } from "http-status-codes";
+import type { SignOptions } from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
+import basicAuthenticationMiddleware from '../middlewares/basic-authentication.middleware';
 import bearerAuthenticationMiddleware from "../middlewares/bearer-authentication.middleware";
+import ForbiddenError from "../models/errors/forbidden.error.model";
 
 const authorizationRoute = Router();
 
@@ -17,7 +18,7 @@ authorizationRoute.post('/token', basicAuthenticationMiddleware, async (req: Req
         }
 
         const jwtPayload = { username: user.username };
-        const jwtOptions = { subject: user?.uuid };
+        const jwtOptions: SignOptions = { subject: user?.uuid, expiresIn: '10m' };
         const secretKey = 'Asdw2';
 
         const jwt = JWT.sign(jwtPayload, secretKey, jwtOptions);
