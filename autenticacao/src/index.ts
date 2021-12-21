@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rotas
 app.use(statusRoute);
-app.use(bearerAuthenticationMiddleware, usersRoute);
 app.use(authorizationRoute);
+app.use(bearerAuthenticationMiddleware, usersRoute);
 
 // Error Handler
 app.use(errorHandler);
