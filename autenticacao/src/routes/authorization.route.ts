@@ -30,7 +30,7 @@ authorizationRoute.post('/token', basicAuthenticationMiddleware, async (req: Req
     }
 });
 
-authorizationRoute.post('/token/validate', bearerAuthenticationMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+authorizationRoute.post('/token/validate', bearerAuthenticationMiddleware, async (_req: Request, res: Response, next: NextFunction) => {
     try {
         res.status(StatusCodes.OK)
     }
