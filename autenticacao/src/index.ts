@@ -5,7 +5,7 @@ import authorizationRoute from './routes/authorization.route';
 import statusRoute from './routes/status.route';
 import usersRoute from './routes/users.route';
 
-const PORT = 3333;
+const PORT = process.env.PORT || 3333;
 
 const app = express();
 
