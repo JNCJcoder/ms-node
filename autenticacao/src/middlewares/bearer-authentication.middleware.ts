@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import JWT from 'jsonwebtoken';
 import ForbiddenError from "../models/errors/forbidden.error.model";
-import userRepository from '../repositories/user.repository';
 
 async function bearerAuthenticationMiddleware(req: Request, _res: Response, next: NextFunction) {
     try {
