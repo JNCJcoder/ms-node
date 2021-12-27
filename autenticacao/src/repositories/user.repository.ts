@@ -42,10 +42,10 @@ class UserRepository {
                 SELECT uuid, username
                 FROM application_user
                 WHERE username = $1
-                AND password = crypt($2, 'asdw')
+                AND password = crypt($2, $3)
             `
 
-            const values = [username, password];
+            const values = [username, password, process.env.PASSWDCRYPT];
             const { rows } = await db.query(query, values);
             const [user] = rows;
 
@@ -63,11 +63,11 @@ class UserRepository {
                     username,
                     password
                 )
-                VALUES ($1, crypt($2, 'asdw'))
+                VALUES ($1, crypt($2, $3))
                 RETURNING uuid
             `;
 
-            const values = [user.username, user.password];
+            const values = [user.username, user.password, process.env.PASSWDCRYPT];
 
             const { rows } = await db.query<{ uuid: string }>(script, values);
             const [newUser] = rows;
@@ -84,11 +84,11 @@ class UserRepository {
                 UPDATE application_user
                 SET
                     username = $1,
-                    password = crypt($2, 'asdw')
+                    password = crypt($2, $4)
                 WHERE uuid = $3
             `;
 
-            const values = [user.username, user.password, user.uuid];
+            const values = [user.username, user.password, user.uuid, process.env.PASSWDCRYPT];
             await db.query(script, values);
         } catch (error) {
             throw new DatabaseError('Erro na consulta por ID', error);

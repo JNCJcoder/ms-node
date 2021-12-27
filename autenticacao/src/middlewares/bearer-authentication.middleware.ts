@@ -17,7 +17,7 @@ async function bearerAuthenticationMiddleware(req: Request, _res: Response, next
         }
 
         try {
-            const tokenPayload = JWT.verify(token, 'Asdw2');
+            const tokenPayload = JWT.verify(token, process.env.SECRET);
 
             if (typeof tokenPayload !== 'object' || !tokenPayload.sub) {
                 throw new ForbiddenError('Token Inválido');

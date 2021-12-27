@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express from 'express';
 import bearerAuthenticationMiddleware from './middlewares/bearer-authentication.middleware';
 import errorHandler from './middlewares/error-handler.middleware';

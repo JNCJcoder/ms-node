@@ -19,9 +19,8 @@ authorizationRoute.post('/token', basicAuthenticationMiddleware, async (req: Req
 
         const jwtPayload = { username: user.username };
         const jwtOptions: SignOptions = { subject: user?.uuid, expiresIn: '10m' };
-        const secretKey = 'Asdw2';
 
-        const jwt = JWT.sign(jwtPayload, secretKey, jwtOptions);
+        const jwt = JWT.sign(jwtPayload, process.env.SECRET, jwtOptions);
 
         res.status(StatusCodes.OK).json({ token: jwt });
     }
