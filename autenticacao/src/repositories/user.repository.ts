@@ -119,8 +119,7 @@ class UserRepository {
     async remove(uuid: string): Promise<void> {
         try {
             const script = `
-                DELETE
-                FROM application_user
+                DELETE FROM application_user
                 WHERE uuid = $1
             `;
 
