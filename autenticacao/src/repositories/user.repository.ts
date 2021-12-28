@@ -68,6 +68,10 @@ class UserRepository {
                 RETURNING uuid
             `;
 
+            if (await this.verifyUserExist(user.username)) {
+                throw new DatabaseError('Usuario ja existe');
+            }
+
             const values = [user.username, user.password, process.env.PASSWDCRYPT];
 
             const { rows } = await db.query<{ uuid: string }>(script, values);
@@ -79,6 +83,18 @@ class UserRepository {
         }
     }
 
+    async verifyUserExist(username: string): Promise<Boolean> {
+        const query = `
+                SELECT uuid, username
+                FROM application_user
+                WHERE username = $1
+            `
+        const values = [username];
+
+        const { rows } = await db.query(query, values);
+        return rows[0].username == username;
+    }
+
     async update(user: User): Promise<void> {
         try {
             const script = `
@@ -88,6 +104,10 @@ class UserRepository {
                     password = crypt($2, $4)
                 WHERE uuid = $3
             `;
+
+            if (await this.verifyUserExist(user.username)) {
+                throw new DatabaseError('Usuario já existe');
+            }
 
             const values = [user.username, user.password, user.uuid, process.env.PASSWDCRYPT];
             await db.query(script, values);
