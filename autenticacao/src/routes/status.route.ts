@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 const statusRoute = Router();
 
 statusRoute.get('/status', (_req: Request, res: Response, _next: NextFunction) => {
-    res.status(StatusCodes.OK);
+    res.sendStatus(StatusCodes.OK);
 });
 
 export default statusRoute;

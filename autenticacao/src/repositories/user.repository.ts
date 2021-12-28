@@ -9,6 +9,7 @@ class UserRepository {
                 SELECT uuid, username
                 FROM application_user
             `
+
             const { rows } = await db.query<User>(query);
 
             return rows || [];
