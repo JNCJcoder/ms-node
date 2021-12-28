@@ -36,7 +36,7 @@ async function bearerAuthenticationMiddleware(req: Request, _res: Response, next
         }
     }
     catch (error) {
-
+        next(error);
     }
 }
 
