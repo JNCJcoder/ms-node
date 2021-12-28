@@ -30,7 +30,7 @@ usersRoute.post('/users', async (req: Request, res: Response, next: NextFunction
     try {
         const newUser = req.body;
         const uuid = await userRepository.create(newUser);
-        res.status(StatusCodes.CREATED).send(uuid);
+        res.status(StatusCodes.CREATED).json({ uuid });
     }
     catch (error) {
         next(error);
