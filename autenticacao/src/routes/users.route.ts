@@ -46,7 +46,7 @@ usersRoute.put('/users/:uuid', async (req: Request, res: Response, next: NextFun
 
         await userRepository.update(modifiedUser);
 
-        res.sendStatus(StatusCodes.OK);
+        res.sendStatus(StatusCodes.NO_CONTENT);
     }
     catch (error) {
         next(error);
@@ -57,7 +57,7 @@ usersRoute.delete('/users/:uuid', async (req: Request, res: Response, next: Next
     try {
         const { uuid } = req.params;
         await userRepository.remove(uuid);
-        res.sendStatus(StatusCodes.OK);
+        res.sendStatus(StatusCodes.NO_CONTENT);
     }
     catch (error) {
         next(error);
